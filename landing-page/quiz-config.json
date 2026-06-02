@@ -1,0 +1,129 @@
+{
+  "totaleStep": 10,
+  "domande": [
+    {
+      "id": 1,
+      "testo": "Da quanto tempo lavori con le Meta Ads?",
+      "opzioni": [
+        { "testo": "Meno di 6 mesi",             "bucket": "principiante", "prossima": 2 },
+        { "testo": "6 mesi – 2 anni",             "bucket": "principiante", "prossima": 2 },
+        { "testo": "Oltre 2 anni",                "bucket": "intermedio",   "prossima": 2 },
+        { "testo": "Mi sto approcciando solo ora","bucket": "principiante", "prossima": 2 }
+      ]
+    },
+    {
+      "id": 2,
+      "testo": "Che tipologia di progetti gestisci attualmente?",
+      "opzioni": [
+        { "testo": "Local Business",              "bucket": "intermedio",   "prossima": 3 },
+        { "testo": "eCommerce",                   "bucket": "intermedio",   "prossima": 3 },
+        { "testo": "Lead Gen",                    "bucket": "intermedio",   "prossima": 3 },
+        { "testo": "Varie tipologie di progetti", "bucket": "scaler",       "prossima": 3 }
+      ]
+    },
+    {
+      "id": 3,
+      "testo": "Quanti progetti gestisci al momento?",
+      "opzioni": [
+        { "testo": "1-3",  "bucket": "principiante", "prossima": 4 },
+        { "testo": "3-6",  "bucket": "intermedio",   "prossima": 4 },
+        { "testo": "6-10", "bucket": "scaler",       "prossima": 4 }
+      ]
+    },
+    {
+      "id": 4,
+      "testo": "Qual è il budget medio giornaliero che investi in Meta Ads?",
+      "opzioni": [
+        { "testo": "0-50€/day",       "bucket": "principiante", "prossima": 5 },
+        { "testo": "50-100€/day",     "bucket": "principiante", "prossima": 5 },
+        { "testo": "100-300€/day",    "bucket": "intermedio",   "prossima": 5 },
+        { "testo": "Oltre i 500€/day","bucket": "scaler",       "prossima": 5 }
+      ]
+    },
+    {
+      "id": 5,
+      "testo": "Pensi di avere un metodo di lavoro come Meta Advertiser?",
+      "opzioni": [
+        { "testo": "No, vado a sensazione ogni volta",                        "bucket": "principiante", "prossima": 6 },
+        { "testo": "Ho qualche routine ma niente di strutturato",             "bucket": "principiante", "prossima": 6 },
+        { "testo": "Sì, ho un processo definito ma non mi fido al 100% di esso", "bucket": "intermedio","prossima": 6 },
+        { "testo": "Ho un sistema chiaro che applico su ogni cliente",        "bucket": "scaler",       "prossima": 6 }
+      ]
+    },
+    {
+      "id": 6,
+      "testo": "Andromeda, quanto sei confident con il nuovo algoritmo?",
+      "opzioni": [
+        { "testo": "Non ho ancora capito cos'è Andromeda",                    "bucket": "principiante", "prossima": 7 },
+        { "testo": "Andromeda ha creato parecchi problemi alle mie campagne", "bucket": "intermedio",   "prossima": 7 },
+        { "testo": "Ho compreso perfettamente le sue logiche",                "bucket": "scaler",       "prossima": 7 }
+      ]
+    },
+    {
+      "id": 7,
+      "testo": "Come testi i contenuti delle tue campagne?",
+      "opzioni": [
+        { "testo": "Lancio quello che mi sembra giusto",                      "bucket": "creativo",     "prossima": 8 },
+        { "testo": "Faccio qualche test ma senza una logica chiara",          "bucket": "creativo",     "prossima": 8 },
+        { "testo": "Seguo un framework ma non so quanto sia valido",          "bucket": "intermedio",   "prossima": 8 },
+        { "testo": "Ho un sistema di testing strutturato e misurabile",       "bucket": "scaler",       "prossima": 8 }
+      ]
+    },
+    {
+      "id": 8,
+      "testo": "Quando provi a scalare le tue campagne, cosa succede?",
+      "opzioni": [
+        { "testo": "Le performance crollano quasi sempre",                    "bucket": "principiante", "prossima": 9 },
+        { "testo": "A volte tiene, a volte no — non capisco perché",         "bucket": "intermedio",   "prossima": 9 },
+        { "testo": "Scalare mi mette ansia, a volte rinuncio",               "bucket": "intermedio",   "prossima": 9 },
+        { "testo": "Ho un metodo di scaling che funziona",                   "bucket": "scaler",       "prossima": 9 }
+      ]
+    },
+    {
+      "id": 9,
+      "testo": "Qual è il tuo obiettivo entro i prossimi 6 mesi?",
+      "opzioni": [
+        { "testo": "Smettere di improvvisare e avere un metodo",              "bucket": "principiante", "prossima": 10 },
+        { "testo": "Scalare le campagne in modo stabile",                    "bucket": "intermedio",   "prossima": 10 },
+        { "testo": "Padroneggiare Andromeda e la content strategy",          "bucket": "scaler",       "prossima": 10 },
+        { "testo": "Migliorare le mie skills e attrarre clienti premium",    "bucket": "scaler",       "prossima": 10 }
+      ]
+    },
+    {
+      "id": 10,
+      "testo": "Qual è mediamente la fee minima che deve corrisponderti un'azienda per gestire le sue Meta Ads?",
+      "opzioni": [
+        { "testo": "€300 – €500",   "bucket": "principiante", "prossima": "email" },
+        { "testo": "€500 – €700",   "bucket": "principiante", "prossima": "email" },
+        { "testo": "€700 – €1.000", "bucket": "intermedio",   "prossima": "email" },
+        { "testo": "Oltre i €1.000","bucket": "scaler",       "prossima": "email" }
+      ]
+    }
+  ],
+  "risultati": {
+    "principiante": {
+      "badge": "🌱 Il Principiante Ambizioso",
+      "titolo": "Hai le basi. Ti manca il sistema.",
+      "testo": "il tuo problema non è il budget — è che stai costruendo campagne senza una struttura chiara. L'algoritmo di Meta ha bisogno di dati puliti e di una strategia di testing per imparare. La buona notizia? Con il metodo giusto, i primi risultati arrivano in poche settimane.",
+      "cta": "Scopri come impostare la tua prima campagna professionale →"
+    },
+    "intermedio": {
+      "badge": "😤 L'Intermedio Bloccato",
+      "titolo": "Sai fare le campagne. I risultati non sono stabili.",
+      "testo": "il ROAS che crolla non è colpa tua — è l'algoritmo che si esaurisce senza nuovi input. La soluzione non è cambiare strategia ogni settimana: è costruire un ciclo continuo di testing creatività + dati freschi al pixel.",
+      "cta": "Guarda come stabilizzare i risultati con il sistema delle 3 leve →"
+    },
+    "scaler": {
+      "badge": "🚀 Lo Scaler Frustrato",
+      "titolo": "Sai scalare. Stai usando metodi del 2021.",
+      "testo": "Andromeda ha cambiato le regole. Meta non ottimizza più sulla conversione singola, ma sul valore cliente nel tempo. Chi scala nel 2025 passa dati LTV al pixel, usa Advantage+ in modo strategico e smette di controllare i micro-dati ogni giorno.",
+      "cta": "Scopri il metodo di scaling compatibile con Andromeda →"
+    },
+    "creativo": {
+      "badge": "💡 Il Creativo Stanco",
+      "titolo": "Il problema non sono le campagne. Sono le creatività.",
+      "testo": "Meta Ads è diventato un gioco di creatività. Chi vince ha un sistema per produrre e testare 10–20 nuovi angoli ogni mese, senza impazzire. Non serve un team enorme: serve un processo.",
+      "cta": "Scarica il sistema di testing creatività a rotazione →"
+    }
+  }
+}

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz Meta Ads — Crescere Digitale</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #111547;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 24px 32px;
+      border-bottom: 1px solid rgba(234,235,237,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 16px;
+      font-weight: 700;
+      color: #EAEBED;
+      letter-spacing: -0.01em;
+    }
+
+    .logo span { color: #64D7A4; }
+
+    .quiz-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 24px;
+    }
+
+    .quiz-box {
+      width: 100%;
+      max-width: 640px;
+    }
+
+    /* PROGRESS */
+    .quiz-progress-wrap {
+      height: 4px;
+      background: rgba(234,235,237,0.12);
+      border-radius: 100px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+
+    .quiz-progress-bar {
+      height: 100%;
+      background: #64D7A4;
+      border-radius: 100px;
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+
+    .quiz-step-label {
+      font-size: 13px;
+      color: #EAEBED;
+      opacity: 0.45;
+      margin-bottom: 40px;
+    }
+
+    /* STEPS */
+    .quiz-step { display: none; }
+    .quiz-step.active { display: block; }
+
+    .quiz-question {
+      font-size: clamp(20px, 3vw, 26px);
+      font-weight: 700;
+      color: #EAEBED;
+      line-height: 1.35;
+      margin-bottom: 32px;
+    }
+
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .quiz-opt {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(234,235,237,0.15);
+      border-radius: 12px;
+      padding: 18px 22px;
+      color: #EAEBED;
+      font-size: 16px;
+      text-align: left;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      width: 100%;
+    }
+
+    .quiz-opt:hover {
+      border-color: #64D7A4;
+      background: rgba(100,215,164,0.08);
+    }
+
+    .quiz-opt.selected {
+      border-color: #64D7A4;
+      background: rgba(100,215,164,0.15);
+      color: #64D7A4;
+      font-weight: 600;
+    }
+
+    /* EMAIL FORM */
+    .quiz-email-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .quiz-input {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(234,235,237,0.15);
+      border-radius: 12px;
+      padding: 18px 22px;
+      color: #EAEBED;
+      font-size: 16px;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .quiz-input:focus { border-color: #64D7A4; }
+    .quiz-input::placeholder { color: rgba(234,235,237,0.35); }
+
+    .cta-btn {
+      display: inline-block;
+      background: #64D7A4;
+      color: #111547;
+      font-size: 17px;
+      font-weight: 700;
+      padding: 18px 32px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      width: 100%;
+      margin-top: 8px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 30px rgba(100,215,164,0.3);
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 50px rgba(100,215,164,0.5);
+    }
+
+    /* RISULTATO */
+    .quiz-result {
+      background: rgba(100,215,164,0.07);
+      border: 1px solid rgba(100,215,164,0.25);
+      border-radius: 20px;
+      padding: 40px;
+    }
+
+    .result-badge {
+      display: inline-block;
+      background: #64D7A4;
+      color: #111547;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+    }
+
+    .quiz-result h3 {
+      font-size: clamp(22px, 3vw, 30px);
+      font-weight: 800;
+      color: #EAEBED;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .quiz-result p {
+      font-size: 16px;
+      color: #EAEBED;
+      opacity: 0.7;
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 13px;
+      color: rgba(234,235,237,0.25);
+      border-top: 1px solid rgba(234,235,237,0.08);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="positivo.svg" alt="Crescere Digitale" style="height: 36px; background: rgba(255,255,255,0.95); padding: 6px 14px; border-radius: 8px;" />
+    <div style="font-size:13px; color: rgba(234,235,237,0.4);">Quiz Meta Ads</div>
+  </header>
+
+  <div class="quiz-container">
+    <div class="quiz-box">
+
+      <div class="quiz-progress-wrap">
+        <div class="quiz-progress-bar" id="progressBar"></div>
+      </div>
+      <div class="quiz-step-label" id="stepLabel"></div>
+
+      <!-- Domande generate dinamicamente da quiz-config.json -->
+      <div id="quizBody"></div>
+
+    </div>
+  </div>
+
+  <footer>© 2025 Crescere Digitale · Tutti i diritti riservati</footer>
+
+  <script>
+    // ── Stato ──
+    const bucketScores = { principiante: 0, intermedio: 0, scaler: 0, creativo: 0 };
+    const params = new URLSearchParams(window.location.search);
+    const urlNome = params.get('nome') || '';
+    const urlCognome = params.get('cognome') || '';
+    const userName = (urlNome + (urlCognome ? ' ' + urlCognome : '')).trim() || 'tu';
+
+    let config = null;         // dati da quiz-config.json
+    let domande = [];          // array domande
+    let currentDomandaId = null; // id domanda corrente
+    let stepCount = 0;         // contatore step visibili (per progress bar)
+    let totalSteps = 0;
+
+    // ── Carica config ──
+    fetch('quiz-config.json')
+      .then(r => r.json())
+      .then(data => {
+        config = data;
+        domande = data.domande;
+        totalSteps = data.totaleStep;
+        renderDomanda(domande[0].id);
+      });
+
+    // ── Render domanda per ID ──
+    function renderDomanda(id) {
+      const domanda = domande.find(d => d.id === id);
+      if (!domanda) return;
+      currentDomandaId = id;
+      stepCount++;
+      updateProgress();
+
+      const opzioniHTML = domanda.opzioni.map(op => `
+        <button class="quiz-opt"
+          data-bucket="${op.bucket}"
+          data-prossima="${op.prossima}"
+          onclick="selectOption(this)">
+          ${op.testo}
+        </button>
+      `).join('');
+
+      document.getElementById('quizBody').innerHTML = `
+        <div class="quiz-step active">
+          <p class="quiz-question">${domanda.testo}</p>
+          <div class="quiz-options">${opzioniHTML}</div>
+        </div>
+      `;
+    }
+
+    // ── Render step WhatsApp ──
+    function renderEmail() {
+      stepCount++;
+      updateProgress();
+      const nome = userName.split(' ')[0];
+      document.getElementById('quizBody').innerHTML = `
+        <div class="quiz-step active">
+          <p class="quiz-question">Ci siamo quasi, ${nome}!</p>
+          <p style="font-size:16px; color:rgba(234,235,237,0.65); line-height:1.6; margin-bottom:28px;">
+            Lascia qui sotto il tuo WhatsApp <strong style="color:#64D7A4;">(zero spam)</strong> — lo utilizzeremo per inviarti le risposte alla tua situazione.
+          </p>
+          <div class="quiz-email-form">
+            <input type="tel" id="userWhatsapp" placeholder="Es. +39 333 1234567" class="quiz-input" />
+            <button class="cta-btn" onclick="showResult()">Ricevi la tua diagnosi →</button>
+            <p style="font-size:12px;opacity:0.35;margin-top:4px;text-align:center;">Zero spam. Solo la tua diagnosi personalizzata.</p>
+          </div>
+        </div>
+      `;
+    }
+
+    // ── Render risultato ──
+    function renderRisultato(bucket) {
+      document.getElementById('progressBar').style.width = '100%';
+      document.getElementById('stepLabel').textContent = '';
+      const nome = userName.split(' ')[0];
+      document.getElementById('quizBody').innerHTML = `
+        <div class="quiz-step active" style="text-align:center;">
+          <div style="font-size:56px; margin-bottom:24px;">✅</div>
+          <h3 style="font-size:clamp(24px,3vw,32px); font-weight:800; color:#EAEBED; line-height:1.2; margin-bottom:16px;">
+            Perfetto, ${nome}!
+          </h3>
+          <p style="font-size:17px; color:rgba(234,235,237,0.65); line-height:1.7; max-width:480px; margin:0 auto;">
+            Abbiamo tutto ciò che ci serve.<br/>
+            Ti contatteremo su <strong style="color:#64D7A4;">WhatsApp</strong> con le risposte alla tua situazione entro <strong style="color:#64D7A4;">72h</strong>.
+          </p>
+        </div>
+      `;
+    }
+
+    // ── Selezione opzione ──
+    function selectOption(btn) {
+      document.querySelectorAll('.quiz-opt').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      bucketScores[btn.getAttribute('data-bucket')]++;
+      const prossima = btn.getAttribute('data-prossima');
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (prossima === 'email') {
+          renderEmail();
+        } else {
+          renderDomanda(parseInt(prossima));
+        }
+      }, 350);
+    }
+
+    // ── Mostra risultato ──
+    function showResult() {
+      const winner = Object.entries(bucketScores).sort((a, b) => b[1] - a[1])[0][0];
+      window.location.href = `bucket-${winner}.html`;
+    }
+
+    // ── Progress bar ──
+    function updateProgress() {
+      const pct = Math.min(((stepCount - 1) / totalSteps) * 100, 95);
+      document.getElementById('progressBar').style.width = pct + '%';
+      document.getElementById('stepLabel').textContent = `Domanda ${stepCount} di ${totalSteps}`;
+    }
+  </script>
+
+</body>
+</html>

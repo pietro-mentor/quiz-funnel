@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>La tua diagnosi — Crescere Digitale</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --blu: #111547;
+      --verde: #64D7A4;
+      --grigio: #EAEBED;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #0d0d0d;
+      color: var(--grigio);
+    }
+
+    /* ── HEADER ── */
+    header {
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid rgba(234,235,237,0.08);
+      background: #0d0d0d;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    /* ── SEZIONI GENERALI ── */
+    .section {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 80px 24px;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--verde);
+      margin-bottom: 20px;
+    }
+
+    .section-headline {
+      font-size: clamp(26px, 4vw, 42px);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+
+    .section-sub {
+      font-size: 16px;
+      color: rgba(234,235,237,0.55);
+      line-height: 1.7;
+      max-width: 600px;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      border: none;
+      border-top: 1px solid rgba(234,235,237,0.08);
+    }
+
+    /* ── VIDEO PLACEHOLDER ── */
+    .video-wrap {
+      margin-top: 40px;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #1a1a1a;
+      border: 1px solid rgba(234,235,237,0.1);
+      aspect-ratio: 16/9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .video-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .video-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      color: rgba(234,235,237,0.3);
+    }
+
+    .play-btn {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--verde);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .play-btn svg {
+      fill: var(--blu);
+      margin-left: 4px;
+    }
+
+    .video-placeholder p {
+      font-size: 14px;
+    }
+
+    /* ── BOOKING ── */
+    .booking-section {
+      background: #111;
+      border-top: 1px solid rgba(234,235,237,0.06);
+      border-bottom: 1px solid rgba(234,235,237,0.06);
+    }
+
+    .booking-card {
+      background: #fff;
+      border-radius: 16px;
+      margin-top: 40px;
+      overflow: hidden;
+      min-height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .booking-placeholder {
+      text-align: center;
+      padding: 60px;
+      color: #999;
+    }
+
+    .booking-placeholder .icon {
+      font-size: 40px;
+      margin-bottom: 16px;
+    }
+
+    .booking-placeholder p {
+      font-size: 15px;
+      color: #aaa;
+    }
+
+    .booking-placeholder code {
+      display: inline-block;
+      margin-top: 12px;
+      background: #f0f0f0;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      color: #555;
+    }
+
+    /* ── CASO STUDIO ── */
+    .case-section {
+      background: #0d0d0d;
+    }
+
+    .case-headline {
+      font-size: clamp(24px, 3.5vw, 38px);
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+
+    .comments-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    .comment-card {
+      background: #1a1a1a;
+      border: 1px solid rgba(234,235,237,0.08);
+      border-radius: 14px;
+      padding: 20px;
+    }
+
+    .comment-author {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--verde);
+      margin-bottom: 8px;
+    }
+
+    .comment-text {
+      font-size: 14px;
+      color: rgba(234,235,237,0.6);
+      line-height: 1.6;
+    }
+
+    /* ── STEPS ── */
+    .steps-section {
+      background: #111;
+      border-top: 1px solid rgba(234,235,237,0.06);
+    }
+
+    .steps-list {
+      margin-top: 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .step-item {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+    }
+
+    .step-num-box {
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(100,215,164,0.1);
+      border: 1px solid rgba(100,215,164,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--verde);
+      letter-spacing: 0.04em;
+    }
+
+    .step-body h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .step-body p {
+      font-size: 15px;
+      color: rgba(234,235,237,0.5);
+      line-height: 1.7;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 28px;
+      font-size: 13px;
+      color: rgba(234,235,237,0.2);
+      border-top: 1px solid rgba(234,235,237,0.06);
+    }
+
+    @media (max-width: 600px) {
+      .comments-grid { grid-template-columns: 1fr; }
+      header { padding: 16px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="positivo.svg" alt="Crescere Digitale" style="height:32px; background:rgba(255,255,255,0.95); padding:5px 12px; border-radius:7px;" />
+  </header>
+
+  <!-- ① VIDEO SPIEGAZIONE -->
+  <section class="section" id="s-video">
+    <span class="badge" id="badge-video">PARTE 1 DI 2 DELLA TUA DIAGNOSI PERSONALIZZATA</span>
+    <h1 class="section-headline" id="video-headline"></h1>
+    <p class="section-sub" id="video-sub"></p>
+    <div class="video-wrap" id="video-main">
+      <div class="video-placeholder">
+        <div class="play-btn">
+          <svg width="24" height="24" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+        <p>Video in arrivo — inserisci il link YouTube/Vimeo</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ② BOOKING CALL -->
+  <section class="booking-section">
+    <div class="section">
+      <span class="badge">PROSSIMO PASSO</span>
+      <h2 class="section-headline" id="booking-headline"></h2>
+      <p class="section-sub" id="booking-sub"></p>
+      <!-- Calendly inline widget begin -->
+      <div class="calendly-inline-widget" data-url="https://calendly.com/cresceredigitale/discovery-call-affiancamento-mentor-quiz" style="min-width:320px;height:700px;"></div>
+      <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+      <!-- Calendly inline widget end -->
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ③ CASO STUDIO -->
+  <section class="case-section">
+    <div class="section">
+      <span class="badge">CASO STUDIO</span>
+      <h2 class="case-headline" id="case-headline"></h2>
+      <p class="section-sub" id="case-sub"></p>
+      <div class="video-wrap" id="video-case" style="margin-top:32px;">
+        <div class="video-placeholder">
+          <div class="play-btn">
+            <svg width="24" height="24" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <p>Video caso studio — inserisci il link</p>
+        </div>
+      </div>
+      <div class="comments-grid" id="comments"></div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ④ STEP STRATEGIA -->
+  <section class="steps-section">
+    <div class="section">
+      <span class="badge">COME L'ABBIAMO RISOLTO</span>
+      <h2 class="section-headline" id="steps-headline"></h2>
+      <div class="steps-list" id="steps"></div>
+    </div>
+  </section>
+
+  <footer>
+    Hiros SHPK · M51309006G · Rr. Kavajes, 1001, Tirana &nbsp;·&nbsp;
+    <a href="#" style="color:rgba(234,235,237,0.3); text-decoration:none;">Privacy Policy</a>
+  </footer>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const bucket = params.get('bucket') || 'principiante';
+    const nome = params.get('nome') || '';
+
+    const content = {
+      principiante: {
+        videoHeadline: `In questo video ti spiego perché le tue campagne Meta non decollano ancora — e qual è il primo passo concreto per cambiarlo`,
+        videoSub: `Nelle prossime ore ti arriverà su WhatsApp la Parte 2 della diagnosi, con le azioni specifiche da fare per superare il tuo blocco.`,
+        bookingHeadline: `Vediamo insieme come impostare le basi giuste nel tuo caso specifico`,
+        bookingSub: `Una manciata di minuti insieme per capire da dove partire — zero impegno.`,
+        caseHeadline: `Marco è passato dal "lancio e spergo" ad avere un sistema che funziona ogni mese.`,
+        caseSub: `Aveva le competenze tecniche di base ma non sapeva come trasformarle in un metodo replicabile.`,
+        comments: [
+          { author: `Marco F.`, text: `"Prima del percorso con Pietro lanciavo campagne a caso sperando che qualcosa funzionasse. Ora ho un sistema chiaro e so esattamente cosa fare ogni settimana."` },
+          { author: `Marco F.`, text: `"In 60 giorni ho strutturato il mio primo processo replicabile e ho acquisito i miei primi 2 clienti con budget sopra i 1.000€/mese."` }
+        ],
+        stepsHeadline: `Il percorso che ha seguito`,
+        steps: [
+          { num: `01`, title: `Diagnosi dell'account e del metodo di lavoro`, body: `Abbiamo analizzato le campagne esistenti e identificato i 3 errori strutturali che vanificavano ogni sforzo. Senza una base solida, anche il budget migliore brucia senza risultati.` },
+          { num: `02`, title: `Costruzione del processo replicabile`, body: `Abbiamo definito un workflow chiaro: dalla struttura delle campagne alla logica di testing, fino alla reportistica settimanale. Un sistema che si applica su ogni cliente.` },
+          { num: `03`, title: `Primi clienti e prime fee professionali`, body: `Con un metodo solido alle spalle, Marco ha iniziato a posizionarsi in modo diverso. Ha alzato le sue fee e acquisito clienti con budget più alti in poche settimane.` }
+        ]
+      },
+      intermedio: {
+        videoHeadline: `In questo video ti spiego perché i tuoi risultati su Meta sono instabili — e cosa devi cambiare per stabilizzarli una volta per tutte`,
+        videoSub: `Nelle prossime ore ti arriverà su WhatsApp la Parte 2 della diagnosi, con le azioni specifiche da fare per superare il tuo blocco.`,
+        bookingHeadline: `Vediamo insieme cosa sta causando l'instabilità nei tuoi progetti specifici`,
+        bookingSub: `Una sessione focalizzata sulla tua situazione — zero impegno.`,
+        caseHeadline: `Giulia gestiva campagne da 2 anni ma i risultati erano un'altalena ogni mese.`,
+        caseSub: `Sapeva fare le campagne, ma non riusciva a capire perché funzionassero o smettessero di funzionare.`,
+        comments: [
+          { author: `Giulia M.`, text: `"Avevo sempre la sensazione di costruire su sabbie mobili. Un mese bene, uno male, senza capire il perché. Ora ho finalmente un sistema stabile."` },
+          { author: `Giulia M.`, text: `"In 45 giorni ho identificato i 2 punti critici che causavano l'instabilità. Il ROAS si è stabilizzato e i clienti hanno smesso di mettermi pressione."` }
+        ],
+        stepsHeadline: `Il percorso che ha seguito`,
+        steps: [
+          { num: `01`, title: `Identificazione del punto di rottura`, body: `Abbiamo analizzato il ciclo delle campagne per trovare esattamente dove e quando i risultati crollavano. Nella maggior parte dei casi si tratta di 1-2 cause radice precise, non di problemi generici.` },
+          { num: `02`, title: `Ricostruzione del flusso dati verso il pixel`, body: `Il problema non era nelle campagne, ma nella qualità dei dati che Meta riceveva. Abbiamo ottimizzato il passaggio degli eventi e introdotto segnali di valore per stabilizzare l'ottimizzazione.` },
+          { num: `03`, title: `Sistema di testing creatività a rotazione`, body: `Abbiamo costruito un ciclo mensile di produzione e testing delle creatività, così l'algoritmo ha sempre nuovi input e non si esaurisce mai.` }
+        ]
+      },
+      scaler: {
+        videoHeadline: `In questo video ti spiego perché ogni volta che provi a scalare le performance crollano — e come chi scala davvero lo fa nel 2025`,
+        videoSub: `Nelle prossime ore ti arriverà su WhatsApp la Parte 2 della diagnosi, con le azioni specifiche da fare per superare il tuo blocco.`,
+        bookingHeadline: `Vediamo insieme perché il tuo scaling si blocca e come sbloccarlo nel tuo caso specifico`,
+        bookingSub: `Una sessione focalizzata sulla struttura delle tue campagne — zero impegno.`,
+        caseHeadline: `Luca scalava fino a €200/day. Oltre quella soglia tutto crollava.`,
+        caseSub: `Aveva un buon ROAS su budget piccoli, ma non riusciva a replicarlo su budget più alti.`,
+        comments: [
+          { author: `Luca P.`, text: `"Ogni volta che provavo a scalare era come sbattere contro un muro. Il ROAS crollava e dovevo tornare indietro. Pietro mi ha fatto capire che stavo scalando nel modo sbagliato."` },
+          { author: `Luca P.`, text: `"Con il metodo di scaling orizzontale siamo passati da €200 a €800/day mantenendo un ROAS stabile. È stata una svolta totale."` }
+        ],
+        stepsHeadline: `Il percorso che ha seguito`,
+        steps: [
+          { num: `01`, title: `Audit della struttura campagne e del pixel`, body: `Abbiamo analizzato come venivano passati i dati a Meta. Andromeda ottimizza sul valore cliente nel tempo: senza LTV e dati di qualità, lo scaling è impossibile.` },
+          { num: `02`, title: `Introduzione dello scaling orizzontale`, body: `Invece di aumentare il budget sulle campagne esistenti, abbiamo costruito nuovi adset paralleli con angoli creativi diversi. L'algoritmo impara senza destabilizzarsi.` },
+          { num: `03`, title: `Routine di monitoraggio settimanale`, body: `Abbiamo smesso di controllare i dati ogni giorno e introdotto una routine settimanale con metriche chiave. Meno interferenze = algoritmo più stabile = scaling più fluido.` }
+        ]
+      },
+      creativo: {
+        videoHeadline: `In questo video ti spiego perché le tue creatività si esauriscono sempre — e come costruire un sistema che le tiene vive`,
+        videoSub: `Nelle prossime ore ti arriverà su WhatsApp la Parte 2 della diagnosi, con le azioni specifiche da fare per superare il tuo blocco.`,
+        bookingHeadline: `Vediamo insieme come costruire un sistema di creatività sostenibile nel tuo caso specifico`,
+        bookingSub: `Una sessione focalizzata sul tuo processo creativo attuale — zero impegno.`,
+        caseHeadline: `Sara produceva nuove ads ogni settimana. Non bastava mai.`,
+        caseSub: `Il problema non era la quantità di creatività, ma l'assenza di un sistema di testing che dicesse cosa funzionava e perché.`,
+        comments: [
+          { author: `Sara T.`, text: `"Passavo ore a creare nuove ads ma non sapevo mai cosa testare. Era frustrante perché lavoravo tanto ma i risultati erano casuali."` },
+          { author: `Sara T.`, text: `"Ora produco meno ma con più intelligenza. Ho un piano mensile di testing e i risultati sono molto più prevedibili. Il tempo che ci metto si è dimezzato."` }
+        ],
+        stepsHeadline: `Il percorso che ha seguito`,
+        steps: [
+          { num: `01`, title: `Audit del processo creativo attuale`, body: `Abbiamo mappato come venivano prodotte e testate le creatività. Il problema era che si testava tutto insieme senza isolare le variabili: angolo, formato, hook, CTA.` },
+          { num: `02`, title: `Costruzione del framework di testing`, body: `Abbiamo introdotto un sistema di testing per variabili isolate: un angolo alla volta, un formato alla volta. Ogni test produce un dato azionabile, non solo un risultato.` },
+          { num: `03`, title: `Piano editoriale ads mensile`, body: `Abbiamo strutturato un calendario mensile di produzione: 4-6 angoli nuovi al mese, 2-3 varianti per angolo. Un ritmo sostenibile che alimenta l'algoritmo senza bruciare il team.` }
+        ]
+      }
+    };
+
+    const c = content[bucket] || content['principiante'];
+    const primoNome = nome.split(' ')[0];
+
+    // Popola video
+    document.getElementById('video-headline').textContent = c.videoHeadline;
+    document.getElementById('video-sub').textContent = c.videoSub;
+
+    // Popola booking
+    document.getElementById('booking-headline').textContent = c.bookingHeadline;
+    document.getElementById('booking-sub').textContent = c.bookingSub;
+
+    // Popola caso studio
+    document.getElementById('case-headline').textContent = c.caseHeadline;
+    document.getElementById('case-sub').textContent = c.caseSub;
+
+    // Commenti
+    const commentsEl = document.getElementById('comments');
+    c.comments.forEach(cm => {
+      commentsEl.innerHTML += `
+        <div class="comment-card">
+          <div class="comment-author">${cm.author}</div>
+          <div class="comment-text">${cm.text}</div>
+        </div>`;
+    });
+
+    // Steps
+    document.getElementById('steps-headline').textContent = c.stepsHeadline;
+    const stepsEl = document.getElementById('steps');
+    c.steps.forEach(s => {
+      stepsEl.innerHTML += `
+        <div class="step-item">
+          <div class="step-num-box">STEP ${s.num}</div>
+          <div class="step-body">
+            <h3>${s.title}</h3>
+            <p>${s.body}</p>
+          </div>
+        </div>`;
+    });
+  </script>
+
+</body>
+</html>
