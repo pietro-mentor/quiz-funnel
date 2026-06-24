@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz Meta Ads — Scopri cosa blocca le tue campagne</title>
+  <link rel="icon" type="image/svg+xml" href="logo.svg" />
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-5PRDMF5V');</script>
+  <!-- End Google Tag Manager -->
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --blu: #111547;
+      --verde: #64D7A4;
+      --grigio: #EAEBED;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--blu);
+      color: var(--grigio);
+    }
+
+    /* ── HEADER ── */
+    header {
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid rgba(234,235,237,0.08);
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--grigio);
+    }
+
+    .logo span { color: var(--verde); }
+
+    /* ── HERO ── */
+    .hero {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: clamp(28px, 8vh, 72px) 24px 0;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(100,215,164,0.12);
+      border: 1px solid rgba(100,215,164,0.3);
+      color: var(--verde);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: clamp(14px, 3vh, 28px);
+      letter-spacing: 0.04em;
+    }
+
+    .hero h1 {
+      font-size: clamp(24px, 5vw, 52px);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: clamp(10px, 2vh, 20px);
+      color: var(--grigio);
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--verde);
+    }
+
+    .hero p {
+      font-size: clamp(15px, 2vw, 19px);
+      color: rgba(234,235,237,0.65);
+      line-height: 1.5;
+      max-width: 580px;
+      margin: 0 auto clamp(18px, 4vh, 36px);
+    }
+
+    .hero-banner {
+      display: none;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background: var(--verde);
+      color: var(--blu);
+      font-size: 17px;
+      font-weight: 700;
+      padding: 17px 44px;
+      border-radius: 12px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 36px rgba(100,215,164,0.35);
+      width: 100%;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 56px rgba(100,215,164,0.5);
+    }
+
+    .cta-note {
+      margin-top: 12px;
+      font-size: 13px;
+      color: rgba(234,235,237,0.35);
+    }
+
+    /* ── FORM HERO ── */
+    .hero-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    .hero-form-row {
+      display: flex;
+      gap: 12px;
+    }
+
+    .hero-input {
+      flex: 1;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 12px;
+      padding: 16px 18px;
+      color: #ffffff;
+      font-size: 16px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .hero-input:focus { border-color: var(--verde); }
+    .hero-input::placeholder { color: rgba(255,255,255,0.5); }
+
+    /* ── QUIZ PREVIEW ── */
+    .quiz-preview {
+      margin: 52px auto 0;
+      max-width: 680px;
+      padding: 0 24px;
+    }
+
+    .quiz-preview-box {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(234,235,237,0.12);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.4);
+    }
+
+    .preview-topbar {
+      background: rgba(255,255,255,0.05);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid rgba(234,235,237,0.08);
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .dot-r { background: #ff5f57; }
+    .dot-y { background: #febc2e; }
+    .dot-g { background: #28c840; }
+
+    .preview-body {
+      padding: 32px 28px;
+    }
+
+    .preview-progress {
+      height: 4px;
+      background: rgba(234,235,237,0.1);
+      border-radius: 100px;
+      margin-bottom: 8px;
+      overflow: hidden;
+    }
+
+    .preview-progress-fill {
+      width: 14%;
+      height: 100%;
+      background: var(--verde);
+      border-radius: 100px;
+    }
+
+    .preview-label {
+      font-size: 12px;
+      color: rgba(234,235,237,0.35);
+      margin-bottom: 24px;
+    }
+
+    .preview-question {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--grigio);
+      margin-bottom: 20px;
+      line-height: 1.35;
+    }
+
+    .preview-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .preview-opt {
+      padding: 13px 18px;
+      border: 1px solid rgba(234,235,237,0.12);
+      border-radius: 10px;
+      font-size: 14px;
+      color: rgba(234,235,237,0.6);
+    }
+
+    .preview-opt.active {
+      border-color: var(--verde);
+      background: rgba(100,215,164,0.1);
+      color: var(--verde);
+      font-weight: 600;
+    }
+
+    /* ── AVATARS ── */
+    .avatars-row {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      margin-top: 40px;
+      padding-bottom: 16px;
+    }
+
+    .avatars-faces {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border: 3px solid var(--blu);
+      background: rgba(100,215,164,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      margin-left: -14px;
+      overflow: hidden;
+      box-shadow: 0 0 0 1px rgba(100,215,164,0.2);
+    }
+
+    .avatars-faces .avatar:first-child { margin-left: 0; }
+
+    .avatar-count {
+      font-size: 14px;
+      color: rgba(234,235,237,0.55);
+      text-align: center;
+      max-width: 320px;
+      line-height: 1.5;
+    }
+
+    .avatar-count strong {
+      color: var(--verde);
+      font-weight: 700;
+    }
+
+    /* ── SOCIAL PROOF BAR ── */
+    .proof-section {
+      max-width: 900px;
+      margin: 72px auto 0;
+      padding: 0 24px;
+    }
+
+    .proof-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: rgba(234,235,237,0.08);
+      border: 1px solid rgba(234,235,237,0.08);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .proof-item {
+      text-align: center;
+      padding: 32px 20px;
+      background: rgba(255,255,255,0.02);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s;
+    }
+
+    .proof-item:hover {
+      background: rgba(100,215,164,0.05);
+    }
+
+    .proof-num {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--verde);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .proof-label {
+      font-size: 12px;
+      color: rgba(234,235,237,0.45);
+      line-height: 1.4;
+      max-width: 120px;
+    }
+
+    .proof-divider {
+      display: none;
+      width: 1px;
+      height: 44px;
+      background: rgba(234,235,237,0.1);
+    }
+
+    /* ── COSA OTTIENI ── */
+    .benefits-section {
+      max-width: 780px;
+      margin: 80px auto 0;
+      padding: 0 24px;
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--verde);
+      margin-bottom: 14px;
+    }
+
+    .benefits-section h2 {
+      font-size: clamp(24px, 3.5vw, 36px);
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 48px;
+      color: var(--grigio);
+    }
+
+    .benefits-list {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .benefit {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+    }
+
+    .benefit-num {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--verde);
+      background: rgba(100,215,164,0.1);
+      border: 1px solid rgba(100,215,164,0.25);
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .benefit-text h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--grigio);
+      margin-bottom: 6px;
+    }
+
+    .benefit-text p {
+      font-size: 15px;
+      color: rgba(234,235,237,0.5);
+      line-height: 1.6;
+    }
+
+    /* ── BIO ── */
+    .bio-section {
+      max-width: 900px;
+      margin: 80px auto 0;
+      padding: 0 24px;
+    }
+
+    .bio-card {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 56px;
+      align-items: center;
+    }
+
+    .bio-img-wrap {
+      border-radius: 20px;
+      overflow: hidden;
+      aspect-ratio: 4/5;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(234,235,237,0.1);
+    }
+
+    .bio-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .bio-content .bio-badge {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--verde);
+      margin-bottom: 16px;
+    }
+
+    .bio-content h3 {
+      font-size: clamp(28px, 3.5vw, 42px);
+      font-weight: 800;
+      color: var(--grigio);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+
+    .bio-content p {
+      font-size: 15px;
+      color: rgba(234,235,237,0.55);
+      line-height: 1.75;
+      margin-bottom: 12px;
+    }
+
+    .bio-cta {
+      display: inline-block;
+      margin-top: 20px;
+      background: var(--verde);
+      color: var(--blu);
+      font-size: 15px;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 24px rgba(100,215,164,0.3);
+    }
+
+    .bio-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 40px rgba(100,215,164,0.5);
+    }
+
+    @media (max-width: 700px) {
+      .bio-card { grid-template-columns: 1fr; }
+      .bio-img-wrap { aspect-ratio: 1/1; max-width: 280px; margin: 0 auto; }
+    }
+
+    /* ── CTA FINALE ── */
+    .cta-section {
+      max-width: 780px;
+      margin: 80px auto 0;
+      padding: 0 24px 100px;
+      text-align: center;
+    }
+
+    .cta-section h2 {
+      font-size: clamp(26px, 4vw, 42px);
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+      color: var(--grigio);
+    }
+
+    .cta-section p {
+      font-size: 17px;
+      color: rgba(234,235,237,0.55);
+      margin-bottom: 36px;
+      line-height: 1.6;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid rgba(234,235,237,0.08);
+      padding: 28px 40px;
+      text-align: center;
+      font-size: 13px;
+      color: rgba(234,235,237,0.25);
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    footer a {
+      color: rgba(234,235,237,0.35);
+      text-decoration: none;
+    }
+
+    footer a:hover { color: var(--verde); }
+
+    @media (max-width: 680px) {
+      header { padding: 16px 20px; }
+      .proof-bar { grid-template-columns: repeat(2, 1fr); }
+      .bio-card { flex-direction: column; }
+      .hero-form-row { flex-direction: column; }
+    }
+
+    @media (min-height: 750px) {
+      .hero-banner { display: block; }
+    }
+  </style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5PRDMF5V"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+  <!-- HEADER -->
+  <header>
+    <img src="positivo.svg" alt="Crescere Digitale" style="height: 36px; background: rgba(255,255,255,0.95); padding: 6px 14px; border-radius: 8px;" />
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">⚡ Killer Quiz · Gratuito · 2 minuti</div>
+    <h1>Scopri cosa blocca le tue campagne <em>Meta Ads</em> dall'ottenere risultati stabili</h1>
+    <p>10 domande per scoprire cosa frena la stabilità dei risultati e la tua crescita come Meta Advertiser — ricevi una diagnosi personalizzata su WhatsApp dove ti spieghiamo i tuoi blocchi e next steps per risolvere.</p>
+
+    <div class="hero-form">
+      <p style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:#ffffff; margin-bottom:14px;">Inizia inserendo il tuo nome e cognome</p>
+      <div class="hero-form-row">
+        <input type="text" id="heroNome" class="hero-input" placeholder="Nome" />
+        <input type="text" id="heroCognome" class="hero-input" placeholder="Cognome" />
+      </div>
+      <button class="cta-btn" onclick="goToQuiz()">Inizia il quiz →</button>
+    </div>
+    <p class="cta-note" style="color:#ffffff;">Ci vogliono giusto 2 minuti</p>
+
+    <img src="oriz-banner.png" alt="Banner" class="hero-banner" style="width:100%; max-width:620px; border-radius:16px; margin-top:36px; display:block; margin-left:auto; margin-right:auto;" />
+  </section>
+
+
+  <!-- AVATARS -->
+  <div class="avatars-row">
+    <div class="avatars-faces">
+      <div class="avatar"><img src="studente 1.jpg" alt="Studente 1" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" /></div>
+      <div class="avatar"><img src="studente 2.jpg" alt="Studente 2" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" /></div>
+      <div class="avatar"><img src="studente 3.jpeg" alt="Studente 3" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" /></div>
+      <div class="avatar"><img src="studente 4.jpg" alt="Studente 4" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" /></div>
+      <div class="avatar"><img src="studente 5.jpg" alt="Studente 5" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" /></div>
+    </div>
+    <span class="avatar-count">Basato su <strong>+1.8M$</strong> gestiti su Meta e <strong>+80</strong> Meta Advertiser affiancati in 1to1</span>
+  </div>
+
+  <!-- SOCIAL PROOF BAR -->
+  <section class="proof-section">
+    <div class="proof-bar">
+      <div class="proof-item">
+        <div class="proof-num">100k+</div>
+        <div class="proof-label">Investiti negli ultimi 6 mesi in Meta Ads</div>
+      </div>
+      <div class="proof-item">
+        <div class="proof-num">+80</div>
+        <div class="proof-label">Meta Advertiser affiancati in 1to1</div>
+      </div>
+      <div class="proof-item">
+        <div class="proof-num">+600k</div>
+        <div class="proof-label">Gestiti in 1to1 con i nostri studenti</div>
+      </div>
+      <div class="proof-item">
+        <div class="proof-num">+1.8M$</div>
+        <div class="proof-label">Gestiti su Meta con il mio team</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COSA OTTIENI -->
+  <section class="benefits-section">
+    <p class="section-label">Cosa ottieni dal quiz</p>
+    <h2>Una diagnosi precisa, non consigli generici</h2>
+
+    <div class="benefits-list">
+      <div class="benefit">
+        <div class="benefit-num">1</div>
+        <div class="benefit-text">
+          <h3>Il blocco specifico che frena le tue campagne</h3>
+          <p>Il quiz identifica esattamente dove si rompe la tua strategia — non "migliora le creatività" o "abbassa il CPM", ma il problema reale alla radice.</p>
+        </div>
+      </div>
+      <div class="benefit">
+        <div class="benefit-num">2</div>
+        <div class="benefit-text">
+          <h3>Una guida personalizzata per superarlo</h3>
+          <p>In base al tuo profilo ricevi una roadmap specifica: non uguale per tutti, ma costruita sul tuo livello, budget e tipo di campagna.</p>
+        </div>
+      </div>
+      <div class="benefit">
+        <div class="benefit-num">3</div>
+        <div class="benefit-text">
+          <h3>Le azioni concrete da fare nei prossimi 90 giorni</h3>
+          <p>Niente teoria. Solo i prossimi step prioritari per vedere un cambiamento reale nelle tue campagne nel breve periodo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BIO -->
+  <section class="bio-section">
+    <div class="bio-card">
+      <div class="bio-img-wrap">
+        <img src="bio-pic.jpeg" alt="Pietro Carpino" />
+      </div>
+      <div class="bio-content">
+        <span class="bio-badge">Chi sono</span>
+        <h3>Sono Pietro Carpino.</h3>
+        <p>Ho iniziato nel digital business a 15 anni. Dal 2018 gestisco la mia agenzia, Crescere Digitale, e ho gestito oltre <strong style="color: var(--verde);">1,8 milioni di dollari</strong> in Meta Ads assieme al mio team — in Italia, UK, USA e India.</p>
+        <p>Ho formato <strong style="color: var(--verde);">80+ advertiser</strong> attraverso MENTOR, l'affiancamento 1to1 per chi fa Meta Ads, lavorando su 15+ settori: fashion, beauty, healthcare, food, agenzie, info business, local, real estate.</p>
+        <p>Questo quiz-diagnosi nasce dagli ostacoli che ho visto ripetersi nei progetti gestiti personalmente e su quelli dove ho affiancato i miei studenti.</p>
+        <p>Rispondi a queste 10 domande e ricevi una roadmap su come risolvere i tuoi ostacoli attuali che stanno rallentando i tuoi progetti e la tua carriera come Meta Advertiser.</p>
+        <a href="quiz.html" class="bio-cta">Fai il quiz ora →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINALE -->
+  <section class="cta-section">
+    <h2>Scopri cosa sta bloccando le tue Meta Ads</h2>
+    <p>2 minuti. 10 domande. Una diagnosi personalizzata con il piano d'azione.</p>
+    <div class="hero-form" style="margin: 0 auto;">
+      <div class="hero-form-row">
+        <input type="text" id="ctaNome" class="hero-input" placeholder="Nome" />
+        <input type="text" id="ctaCognome" class="hero-input" placeholder="Cognome" />
+      </div>
+      <button class="cta-btn" onclick="goToQuizCta()">Inizia il quiz gratuito →</button>
+    </div>
+    <p class="cta-note" style="margin-top: 12px;">Ricevi la diagnosi su WhatsApp, zero spam</p>
+  </section>
+
+  <script>
+    function goToQuiz() {
+      const nome = document.getElementById('heroNome').value.trim();
+      const cognome = document.getElementById('heroCognome').value.trim();
+      if (!nome) { document.getElementById('heroNome').focus(); return; }
+      window.location.href = 'quiz.html?nome=' + encodeURIComponent(nome) + '&cognome=' + encodeURIComponent(cognome);
+    }
+
+    function goToQuizCta() {
+      const nome = document.getElementById('ctaNome').value.trim();
+      const cognome = document.getElementById('ctaCognome').value.trim();
+      if (!nome) { document.getElementById('ctaNome').focus(); return; }
+      window.location.href = 'quiz.html?nome=' + encodeURIComponent(nome) + '&cognome=' + encodeURIComponent(cognome);
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        if (document.activeElement === document.getElementById('heroNome') ||
+            document.activeElement === document.getElementById('heroCognome')) goToQuiz();
+        if (document.activeElement === document.getElementById('ctaNome') ||
+            document.activeElement === document.getElementById('ctaCognome')) goToQuizCta();
+      }
+    });
+  </script>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>Hiros SHPK · M51309006G · Rr. Kavajes, 1001, Tirana</span>
+    <a href="#">Privacy Policy</a>
+    <a href="#">Termini e Condizioni</a>
+  </footer>
+
+</body>
+</html>
