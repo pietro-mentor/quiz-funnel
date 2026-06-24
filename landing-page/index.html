@@ -53,21 +53,6 @@
       text-align: center;
     }
 
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(100,215,164,0.12);
-      border: 1px solid rgba(100,215,164,0.3);
-      color: var(--verde);
-      font-size: 13px;
-      font-weight: 600;
-      padding: 6px 16px;
-      border-radius: 100px;
-      margin-bottom: clamp(14px, 3vh, 28px);
-      letter-spacing: 0.04em;
-    }
-
     .hero h1 {
       font-size: clamp(24px, 5vw, 52px);
       font-weight: 800;
@@ -88,10 +73,6 @@
       line-height: 1.5;
       max-width: 580px;
       margin: 0 auto clamp(18px, 4vh, 36px);
-    }
-
-    .hero-banner {
-      display: none;
     }
 
     .cta-btn {
@@ -533,10 +514,6 @@
       .bio-card { flex-direction: column; }
       .hero-form-row { flex-direction: column; }
     }
-
-    @media (min-height: 750px) {
-      .hero-banner { display: block; }
-    }
   </style>
 </head>
 <body>
@@ -552,21 +529,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <!-- HERO -->
   <section class="hero">
-    <div class="hero-badge">⚡ Killer Quiz · Gratuito · 2 minuti</div>
     <h1>Scopri cosa blocca le tue campagne <em>Meta Ads</em> dall'ottenere risultati stabili</h1>
     <p>10 domande per scoprire cosa frena la stabilità dei risultati e la tua crescita come Meta Advertiser — ricevi una diagnosi personalizzata su WhatsApp dove ti spieghiamo i tuoi blocchi e next steps per risolvere.</p>
+
+    <img src="oriz-banner.png" alt="Banner" class="hero-banner" style="width:100%; max-width:620px; border-radius:16px; margin-bottom:28px; display:block; margin-left:auto; margin-right:auto;" />
 
     <div class="hero-form">
       <p style="font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:#ffffff; margin-bottom:14px;">Inizia inserendo il tuo nome e cognome</p>
       <div class="hero-form-row">
-        <input type="text" id="heroNome" class="hero-input" placeholder="Nome" />
-        <input type="text" id="heroCognome" class="hero-input" placeholder="Cognome" />
+        <input type="text" id="heroNomeCognome" class="hero-input" placeholder="Nome e cognome" />
       </div>
       <button class="cta-btn" onclick="goToQuiz()">Inizia il quiz →</button>
     </div>
     <p class="cta-note" style="color:#ffffff;">Ci vogliono giusto 2 minuti</p>
-
-    <img src="oriz-banner.png" alt="Banner" class="hero-banner" style="width:100%; max-width:620px; border-radius:16px; margin-top:36px; display:block; margin-left:auto; margin-right:auto;" />
   </section>
 
 
@@ -658,8 +633,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <p>2 minuti. 10 domande. Una diagnosi personalizzata con il piano d'azione.</p>
     <div class="hero-form" style="margin: 0 auto;">
       <div class="hero-form-row">
-        <input type="text" id="ctaNome" class="hero-input" placeholder="Nome" />
-        <input type="text" id="ctaCognome" class="hero-input" placeholder="Cognome" />
+        <input type="text" id="ctaNomeCognome" class="hero-input" placeholder="Nome e cognome" />
       </div>
       <button class="cta-btn" onclick="goToQuizCta()">Inizia il quiz gratuito →</button>
     </div>
@@ -667,26 +641,31 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </section>
 
   <script>
+    function splitNomeCognome(fullName) {
+      const parts = fullName.trim().split(/\s+/);
+      const nome = parts.shift() || '';
+      const cognome = parts.join(' ');
+      return { nome, cognome };
+    }
+
     function goToQuiz() {
-      const nome = document.getElementById('heroNome').value.trim();
-      const cognome = document.getElementById('heroCognome').value.trim();
-      if (!nome) { document.getElementById('heroNome').focus(); return; }
+      const field = document.getElementById('heroNomeCognome');
+      const { nome, cognome } = splitNomeCognome(field.value);
+      if (!nome) { field.focus(); return; }
       window.location.href = 'quiz.html?nome=' + encodeURIComponent(nome) + '&cognome=' + encodeURIComponent(cognome);
     }
 
     function goToQuizCta() {
-      const nome = document.getElementById('ctaNome').value.trim();
-      const cognome = document.getElementById('ctaCognome').value.trim();
-      if (!nome) { document.getElementById('ctaNome').focus(); return; }
+      const field = document.getElementById('ctaNomeCognome');
+      const { nome, cognome } = splitNomeCognome(field.value);
+      if (!nome) { field.focus(); return; }
       window.location.href = 'quiz.html?nome=' + encodeURIComponent(nome) + '&cognome=' + encodeURIComponent(cognome);
     }
 
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Enter') {
-        if (document.activeElement === document.getElementById('heroNome') ||
-            document.activeElement === document.getElementById('heroCognome')) goToQuiz();
-        if (document.activeElement === document.getElementById('ctaNome') ||
-            document.activeElement === document.getElementById('ctaCognome')) goToQuizCta();
+        if (document.activeElement === document.getElementById('heroNomeCognome')) goToQuiz();
+        if (document.activeElement === document.getElementById('ctaNomeCognome')) goToQuizCta();
       }
     });
   </script>
