@@ -242,10 +242,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <script>
     // ── Stato ──
     const bucketScores = { principiante: 0, intermedio: 0, scaler: 0, creativo: 0 };
+    const rispostePerData = []; // { domandaId, testoDomanda, rispostaTesto, bucket }
     const params = new URLSearchParams(window.location.search);
     const urlNome = params.get('nome') || '';
     const urlCognome = params.get('cognome') || '';
     const userName = (urlNome + (urlCognome ? ' ' + urlCognome : '')).trim() || 'tu';
+
+    // ── Webhook Zapier (Catch Hook) → arricchisce/pulisce il dato → passa a GHL ──
+    // Sostituisci con l'URL "Catch Hook" del tuo Zap: Zapier → Create Zap → Trigger "Webhooks by Zapier" → "Catch Hook"
+    const ZAPIER_WEBHOOK_URL = 'https://hooks.zapier.com/hooks/catch/3441543/4tg8w1q/';
 
     let config = null;         // dati da quiz-config.json
     let domande = [];          // array domande
@@ -301,7 +306,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </p>
           <div class="quiz-email-form">
             <input type="tel" id="userWhatsapp" placeholder="Es. +39 333 1234567" class="quiz-input" />
-            <button class="cta-btn" onclick="showResult()">Ricevi la tua diagnosi →</button>
+            <button class="cta-btn" onclick="showResult(this)">Ricevi la tua diagnosi →</button>
             <p style="font-size:12px;opacity:0.35;margin-top:4px;text-align:center;">Zero spam. Solo la tua diagnosi personalizzata.</p>
           </div>
         </div>
@@ -331,7 +336,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     function selectOption(btn) {
       document.querySelectorAll('.quiz-opt').forEach(b => b.classList.remove('selected'));
       btn.classList.add('selected');
-      bucketScores[btn.getAttribute('data-bucket')]++;
+      const bucket = btn.getAttribute('data-bucket');
+      bucketScores[bucket]++;
+
+      const domanda = domande.find(d => d.id === currentDomandaId);
+      rispostePerData.push({
+        domandaId: currentDomandaId,
+        domanda: domanda ? domanda.testo : '',
+        risposta: btn.textContent.trim(),
+        bucket: bucket
+      });
+
       const prossima = btn.getAttribute('data-prossima');
       setTimeout(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -344,9 +359,45 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     }
 
     // ── Mostra risultato ──
-    function showResult() {
+    function showResult(btn) {
       const winner = Object.entries(bucketScores).sort((a, b) => b[1] - a[1])[0][0];
-      window.location.href = `bucket-${winner}.html`;
+      const whatsapp = (document.getElementById('userWhatsapp')?.value || '').trim();
+
+      if (btn) { btn.disabled = true; btn.textContent = 'Invio in corso...'; }
+
+      // Evento per GTM → far scattare il tag "Meta Pixel Lead" su questo trigger custom
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'quiz_completed',
+        bucket: winner
+      });
+
+      const payload = {
+        nome: urlNome,
+        cognome: urlCognome,
+        nomeCompleto: userName,
+        whatsapp: whatsapp,
+        bucket: winner,
+        risposte: rispostePerData,
+        sorgente: 'quiz-meta-ads',
+        timestamp: new Date().toISOString()
+      };
+
+      const redirectToResult = () => { window.location.href = `bucket-${winner}.html`; };
+
+      if (!ZAPIER_WEBHOOK_URL || ZAPIER_WEBHOOK_URL === 'INSERISCI_QUI_URL_CATCH_HOOK_ZAPIER') {
+        console.warn('ZAPIER_WEBHOOK_URL non configurato: i dati del quiz non vengono inviati a nessun CRM.');
+        redirectToResult();
+        return;
+      }
+
+      fetch(ZAPIER_WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+        .catch(err => console.error('Errore invio dati quiz a Zapier:', err))
+        .finally(redirectToResult);
     }
 
     // ── Progress bar ──
