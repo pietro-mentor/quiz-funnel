@@ -248,10 +248,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     const urlCognome = params.get('cognome') || '';
     const userName = (urlNome + (urlCognome ? ' ' + urlCognome : '')).trim() || 'tu';
 
-    // ── Webhook Zapier (Catch Hook) → arricchisce/pulisce il dato → passa a GHL ──
-    // Sostituisci con l'URL "Catch Hook" del tuo Zap: Zapier → Create Zap → Trigger "Webhooks by Zapier" → "Catch Hook"
-    const ZAPIER_WEBHOOK_URL = 'https://hooks.zapier.com/hooks/catch/3441543/4dkb38z/';
-
     let config = null;         // dati da quiz-config.json
     let domande = [];          // array domande
     let currentDomandaId = null; // id domanda corrente
@@ -385,18 +381,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       const redirectToResult = () => { window.location.href = `bucket-${winner}.html`; };
 
-      if (!ZAPIER_WEBHOOK_URL || ZAPIER_WEBHOOK_URL === 'INSERISCI_QUI_URL_CATCH_HOOK_ZAPIER') {
-        console.warn('ZAPIER_WEBHOOK_URL non configurato: i dati del quiz non vengono inviati a nessun CRM.');
-        redirectToResult();
-        return;
-      }
-
-      fetch(ZAPIER_WEBHOOK_URL, {
+      // Invio server-side tramite /api/quiz-submit, che inoltra a Zapier.
+      // Evita la chiamata diretta browser -> hooks.zapier.com (bloccata/svuotata
+      // su alcuni dispositivi/reti prima di arrivare a destinazione).
+      fetch('/api/quiz-submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       })
-        .catch(err => console.error('Errore invio dati quiz a Zapier:', err))
+        .catch(err => console.error('Errore invio dati quiz:', err))
         .finally(redirectToResult);
     }
 
