@@ -327,6 +327,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <span class="quiz-phone-prefix">+39</span>
               <input type="tel" id="userWhatsapp" placeholder="333 1234567" class="quiz-input quiz-phone-input" inputmode="numeric" oninput="clearPhoneError()" />
             </div>
+            <p style="font-size:12.5px; color:rgba(234,235,237,0.4); margin-top:-6px;">
+              👀 Hey, non ci provare — un numero finto/inventato e la tua diagnosi non arriva da nessuna parte.
+            </p>
             <p id="phoneError" style="font-size:13px; color:#ff6b6b; display:none; margin-top:-4px;"></p>
             <button class="cta-btn" onclick="showResult(this)">Ricevi la tua diagnosi →</button>
             <p style="font-size:12px;opacity:0.35;margin-top:4px;text-align:center;">Zero spam. Solo la tua diagnosi personalizzata.</p>
@@ -383,13 +386,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     // ── Validazione numero italiano ──
     // Rifiuta: lunghezza sbagliata, non inizia con 3, cifre tutte uguali, sequenze ovvie (crescenti o decrescenti)
     function validaNumeroItaliano(digits) {
-      if (digits.length < 9 || digits.length > 10) return 'Il numero deve avere 9 o 10 cifre.';
-      if (!digits.startsWith('3')) return 'Inserisci un numero di cellulare valido (deve iniziare con 3).';
-      if (/^(\d)\1+$/.test(digits)) return 'Questo numero non sembra valido.';
+      if (digits.length < 9 || digits.length > 10) return 'Mancano o avanzano delle cifre 👀';
+      if (!digits.startsWith('3')) return 'I cellulari italiani iniziano con 3, il tuo no.';
+      if (/^(\d)\1+$/.test(digits)) return 'Hey, non ci provare 😏 questo non è un numero vero.';
       const asc = '0123456789'.slice(0, digits.length);
       const desc = '9876543210'.slice(0, digits.length);
       if (digits === asc || digits === desc) {
-        return 'Questo numero non sembra valido.';
+        return 'Hey, non ci provare 😏 questo non è un numero vero.';
       }
       return null;
     }
